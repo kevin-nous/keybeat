@@ -146,7 +146,7 @@ final class WPMEngine: ObservableObject {
             smoothedWPM = nil
             return nil
         }
-        guard recent.count >= 12 else { return smoothedWPM.map { Int($0.rounded()) } }
+        guard recent.count >= 8 else { return smoothedWPM.map { Int($0.rounded()) } }
         let window = recent.suffix(30)
         var active: TimeInterval = 0
         for (a, b) in zip(window, window.dropFirst()) {
@@ -156,8 +156,8 @@ final class WPMEngine: ObservableObject {
             }
         }
         // Warm-up: a fresh burst has a tiny denominator and reads absurdly
-        // high. Say nothing until there's ~4s of real typing to rate.
-        guard active >= 4 else { return smoothedWPM.map { Int($0.rounded()) } }
+        // high. Say nothing until there's ~2s of real typing to rate.
+        guard active >= 2 else { return smoothedWPM.map { Int($0.rounded()) } }
         let raw = min((Double(window.count) / 5) / (active / 60), 300)
         let alpha = 0.4
         let smoothed = smoothedWPM.map { $0 + alpha * (raw - $0) } ?? raw
