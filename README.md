@@ -36,10 +36,21 @@ permission a keylogger would need. So here is exactly what it does, verifiably:
 **Build from source (recommended):**
 
 1. Clone this repo and open `Keybeat.xcodeproj` in Xcode 15+.
-2. If Xcode asks about signing, select your own team under
-   Signing & Capabilities (any free Apple ID works).
+2. Under Signing & Capabilities, select your own team — any free Apple ID
+   works (Team dropdown → Add an Account…). **Don't skip this**: with a team
+   selected, macOS ties the Input Monitoring permission to your stable signing
+   identity and it survives rebuilds. With "Sign to Run Locally" (ad-hoc),
+   every rebuild is a new identity and you'll re-grant the permission each time.
 3. Run. Keybeat appears in your menu bar and walks you through the one
    permission it needs.
+
+**Troubleshooting — "the toggle is on but nothing counts":** macOS binds the
+permission to the app's code signature, and System Settings will happily show
+a stale grant from a previous build as still enabled (toggling it does
+nothing). Fix: in System Settings → Privacy & Security → Input Monitoring,
+select the Keybeat row and remove it with the "–" button, then let Keybeat
+request it fresh and relaunch. This is a macOS TCC quirk, not a Keybeat bug —
+see any discussion of "TCC designated requirement" for the gory details.
 
 **Downloaded builds:** unsigned apps from GitHub Releases are blocked by
 Gatekeeper on modern macOS — after the "not opened" dialog, go to
