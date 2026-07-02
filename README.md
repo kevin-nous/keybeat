@@ -1,3 +1,5 @@
+<img src="docs/icon.png" width="128" align="left" alt="Keybeat icon — an ECG trace that curls itself into the ⌘ symbol in one unbroken line">
+
 # Keybeat ❤️⌨️
 
 A heart-rate monitor for your typing. Keybeat sits in your Mac's menu bar and
