@@ -53,11 +53,20 @@ won't stick (App Translocation).
   idle gaps over 5s excluded — this is gross WPM; an ambient counter can't see
   typos, so no clinical accuracy is claimed)
 - **Today's rhythm** — WPM by hour of day
+- **Fitness trend** — daily WPM over the last 30 days
+- **KeyFit Score™** — a composite of speed, volume, and consistency with one
+  decimal of entirely unearned precision
+- **🔥 Typing streaks** — consecutive days over 1,000 keystrokes, plus a count
+  of your "rest days" this month. It notices. It always notices.
 - **Personal records** — peak minute, with timestamp for maximum shame
 - **🦉 REM typing** — keystrokes between 1 and 5am
 - **🥴 Hangover detection** — weekend-morning WPM vs. your weekday baseline
   (needs 14 days of data before it starts diagnosing; occasionally wrong,
   which is funnier)
+- **📋 Weekly Health Report** — a Sunday-evening macOS notification with your
+  week-over-week trend, in the caring voice of a fitness wearable that is
+  disappointed in you (asks for the standard notifications permission; skip it
+  and the same line just lives in the stats window)
 
 ## Disclaimers
 

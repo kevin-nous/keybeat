@@ -10,7 +10,9 @@ struct StatsView: View {
             if let report {
                 VStack(alignment: .leading, spacing: 20) {
                     vitals(report)
+                    fitness(report)
                     chart(report)
+                    trends(report)
                     diagnoses(report)
                 }
                 .padding(20)
@@ -53,6 +55,44 @@ struct StatsView: View {
         }
     }
 
+    private func fitness(_ report: HealthReport) -> some View {
+        HStack(spacing: 24) {
+            vital("KeyFit Score™",
+                  report.keyFitScore.map { String(format: "%.1f", $0) } ?? "—",
+                  caption: report.keyFitBand)
+            vital("Streak",
+                  report.currentStreak > 0 ? "🔥 \(report.currentStreak) days" : "—",
+                  caption: report.longestStreak > 0 ? "best: \(report.longestStreak)" : nil)
+            vital("Rest days",
+                  "\(report.restDaysThisMonth) this month",
+                  caption: report.restDaysThisMonth == 0 ? "Impressive. Concerning." : "We noticed.")
+        }
+    }
+
+    private func trends(_ report: HealthReport) -> some View {
+        let cutoff = Calendar.current.date(byAdding: .day, value: -30, to: Calendar.current.startOfDay(for: Date()))!
+        let recent = report.daily.filter { $0.day >= cutoff }
+        return VStack(alignment: .leading, spacing: 8) {
+            Text("Fitness trend — last 30 days")
+                .font(.headline)
+            if recent.count < 2 {
+                Text("Your trend line appears once there's more than one day of history. Rome wasn't typed in a day.")
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, minHeight: 80)
+            } else {
+                Chart(recent) { day in
+                    BarMark(
+                        x: .value("Day", day.day, unit: .day),
+                        y: .value("WPM", day.wpm ?? 0)
+                    )
+                    .foregroundStyle(.pink.gradient)
+                }
+                .frame(height: 140)
+            }
+        }
+    }
+
     private func chart(_ report: HealthReport) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Today's rhythm")
@@ -85,6 +125,7 @@ struct StatsView: View {
                 .font(.headline)
             GroupBox {
                 VStack(alignment: .leading, spacing: 8) {
+                    Text(report.weeklyLine)
                     Text(report.hangoverLine)
                     if report.nightOwlCount > 0 {
                         Text("🦉 REM typing: \(report.nightOwlCount) keystrokes between 1–5am. Seek sunlight.")

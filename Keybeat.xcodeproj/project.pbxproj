@@ -15,6 +15,7 @@
 		740C0FB0251DEE9E9140C3B9 /* HealthReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86F1E61D22B8C92DDB60BAE /* HealthReport.swift */; };
 		8A823DB0951CF63260A51FF5 /* WPMEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B20505C23A002A1A18A1CB /* WPMEngine.swift */; };
 		8EC9DCAEB4476DB89A81FA61 /* KeybeatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81578655B76518A5AE5605A /* KeybeatApp.swift */; };
+		97BFFD9006D89C2D154C19B6 /* WeeklyReportScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7418DF70E71321BE5B12D9 /* WeeklyReportScheduler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		48B20505C23A002A1A18A1CB /* WPMEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPMEngine.swift; sourceTree = "<group>"; };
 		6472AA0EA245F46CF961FB10 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		6BC33FB61F7E7F7ED0D0479D /* KeystrokeMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeystrokeMonitor.swift; sourceTree = "<group>"; };
+		9F7418DF70E71321BE5B12D9 /* WeeklyReportScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyReportScheduler.swift; sourceTree = "<group>"; };
 		BE36C8FC047194BEFE93AA73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DC912F8D7CE71CB0CCC525ED /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		E81578655B76518A5AE5605A /* KeybeatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeybeatApp.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 				DC912F8D7CE71CB0CCC525ED /* OnboardingView.swift */,
 				6472AA0EA245F46CF961FB10 /* StatsView.swift */,
 				0D716FB83F0EE092AF2E0999 /* Store.swift */,
+				9F7418DF70E71321BE5B12D9 /* WeeklyReportScheduler.swift */,
 				48B20505C23A002A1A18A1CB /* WPMEngine.swift */,
 			);
 			path = Keybeat;
@@ -129,6 +132,7 @@
 				5880195F0B187597B057F7E9 /* StatsView.swift in Sources */,
 				4BEB9C4C624F91A4CC3AFD4F /* Store.swift in Sources */,
 				8A823DB0951CF63260A51FF5 /* WPMEngine.swift in Sources */,
+				97BFFD9006D89C2D154C19B6 /* WeeklyReportScheduler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -59,6 +59,7 @@ final class WPMEngine: ObservableObject {
             ticker = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { [weak self] _ in
                 self?.tick()
             }
+            WeeklyReportScheduler.refresh(store: store)
         }
     }
 
@@ -126,11 +127,12 @@ final class WPMEngine: ObservableObject {
         if bucketCount > 0, Int64(Date().timeIntervalSince1970 / 60) != bucketMinute {
             flushBucket()
         }
-        // Day rollover: reset the "today" numbers.
+        // Day rollover: reset the "today" numbers and re-arm Sunday's report.
         let today = Calendar.current.startOfDay(for: Date())
         if today != todayKey {
             todayKey = today
             reloadToday()
+            WeeklyReportScheduler.refresh(store: store)
         }
     }
 
