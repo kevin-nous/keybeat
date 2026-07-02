@@ -33,6 +33,7 @@ final class WPMEngine: ObservableObject {
     private let monitor = KeystrokeMonitor()
     private var lastKeystroke: Date?
     private var recent: [Date] = []                    // rolling 60s window for live WPM
+    private var smoothedWPM: Double?                   // EMA state for the displayed rate
     private var bucketMinute: Int64 = 0
     private var bucketCount = 0
     private var bucketActive: TimeInterval = 0
@@ -115,7 +116,8 @@ final class WPMEngine: ObservableObject {
         todayKeystrokes += 1
         lastKeystroke = now
         recent.append(now)
-        liveWPM = computeLiveWPM()
+        // Display updates happen on the 2s tick, not per keystroke — a fixed
+        // cadence keeps the EMA time-consistent and the menu bar calm.
     }
 
     private func tick() {
@@ -136,19 +138,29 @@ final class WPMEngine: ObservableObject {
         }
     }
 
+    /// Instantaneous rate from the last ~30 keystrokes, then smoothed with an
+    /// EMA (~5s time constant at the 2s tick) so the menu bar reads like a
+    /// heart rate, not a seismograph.
     private func computeLiveWPM() -> Int? {
-        guard let last = lastKeystroke, Date().timeIntervalSince(last) <= Self.idleGap else { return nil }
-        guard recent.count >= 5 else { return nil }
+        guard let last = lastKeystroke, Date().timeIntervalSince(last) <= Self.idleGap else {
+            smoothedWPM = nil
+            return nil
+        }
+        guard recent.count >= 5 else { return smoothedWPM.map { Int($0.rounded()) } }
+        let window = recent.suffix(30)
         var active: TimeInterval = 0
-        for (a, b) in zip(recent, recent.dropFirst()) {
+        for (a, b) in zip(window, window.dropFirst()) {
             let gap = b.timeIntervalSince(a)
             if gap <= Self.idleGap {
                 active += gap
             }
         }
-        guard active >= 1 else { return nil }
-        let words = Double(recent.count) / 5
-        return Int(min(words / (active / 60), 300).rounded())
+        guard active >= 1 else { return smoothedWPM.map { Int($0.rounded()) } }
+        let raw = min((Double(window.count) / 5) / (active / 60), 300)
+        let alpha = 0.4
+        let smoothed = smoothedWPM.map { $0 + alpha * (raw - $0) } ?? raw
+        smoothedWPM = smoothed
+        return Int(smoothed.rounded())
     }
 
     private func flushBucket() {
