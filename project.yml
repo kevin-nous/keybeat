@@ -21,6 +21,7 @@ targets:
         # Automatic signing with NO team committed: each contributor's Xcode
         # picks their own personal team, so a fresh clone builds anywhere.
         CODE_SIGN_STYLE: Automatic
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         SWIFT_VERSION: "5.0"
         GENERATE_INFOPLIST_FILE: false
         MARKETING_VERSION: 0.1.0
