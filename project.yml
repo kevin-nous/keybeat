@@ -1,0 +1,35 @@
+name: Keybeat
+options:
+  bundleIdPrefix: co.nous
+  deploymentTarget:
+    macOS: "14.0"
+targets:
+  Keybeat:
+    type: application
+    platform: macOS
+    sources:
+      - path: Keybeat
+    info:
+      path: Keybeat/Info.plist
+      properties:
+        CFBundleDisplayName: Keybeat
+        LSUIElement: true
+        NSHumanReadableCopyright: "MIT licensed"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: co.nous.Keybeat
+        # Automatic signing with NO team committed: each contributor's Xcode
+        # picks their own personal team, so a fresh clone builds anywhere.
+        CODE_SIGN_STYLE: Automatic
+        SWIFT_VERSION: "5.0"
+        GENERATE_INFOPLIST_FILE: false
+        MARKETING_VERSION: 0.1.0
+        CURRENT_PROJECT_VERSION: 1
+        ENABLE_HARDENED_RUNTIME: true
+schemes:
+  Keybeat:
+    build:
+      targets:
+        Keybeat: all
+    run:
+      config: Debug

@@ -1,0 +1,12 @@
+# Build-only CI: proves the committed source compiles into the app that gets
+# distributed. No signing, no secrets, no notarization.
+name: build
+on:
+  push:
+  pull_request:
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: xcodebuild build -project Keybeat.xcodeproj -scheme Keybeat CODE_SIGNING_ALLOWED=NO
