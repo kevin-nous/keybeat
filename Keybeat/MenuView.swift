@@ -55,6 +55,12 @@ struct MenuView: View {
             Button("Grant Input Monitoring…") {
                 engine.requestPermission()
             }
+            // macOS won't apply the grant to a running process, and the
+            // permission check can keep reporting stale state until relaunch —
+            // so always offer the way out.
+            Button("Already granted it? Relaunch") {
+                WPMEngine.relaunch()
+            }
         }
     }
 

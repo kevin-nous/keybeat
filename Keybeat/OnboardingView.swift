@@ -39,6 +39,9 @@ struct OnboardingView: View {
                     Text("System Settings → Privacy & Security → Input Monitoring → enable Keybeat")
                         .font(.caption)
                         .foregroundStyle(.secondary)
+                    Button("Flipped the toggle already? Relaunch Keybeat") {
+                        WPMEngine.relaunch()
+                    }
                 }
             case .needsRelaunch:
                 VStack(spacing: 8) {
