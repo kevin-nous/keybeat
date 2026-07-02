@@ -48,7 +48,9 @@ struct StatsView: View {
                                 BarMark(
                                     x: .value("Hour", stat.hour),
                                     y: .value("WPM", stat.wpm ?? 0),
-                                    width: .ratio(0.6)
+                                    // .ratio is undefined on a continuous numeric
+                                    // x-axis and renders zero-width bars.
+                                    width: .fixed(12)
                                 )
                                 .foregroundStyle(.pink.gradient)
                                 .cornerRadius(3)
